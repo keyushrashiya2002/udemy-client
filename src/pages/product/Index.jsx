@@ -1,10 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { Card, CardBody, CardHeader, Col, Container, Row } from "reactstrap";
+import {
+  Button,
+  Card,
+  CardBody,
+  CardHeader,
+  Col,
+  Container,
+  Row,
+} from "reactstrap";
 import ProductList from "./DataList";
 import { useDispatch, useSelector } from "react-redux";
 import { getProduct } from "../../store/actions";
 
-import { setProductFilter } from "../../store/product/slice";
+import {
+  resetProductFilter,
+  setProductFilter,
+} from "../../store/product/slice";
 import PaginationDiv from "../../Components/PaginationDiv";
 import { getCategory } from "../../store/category/thunk";
 
@@ -48,7 +59,7 @@ const Product = () => {
 
   return (
     <div className="page-content">
-      <Container fluid>
+      <Container>
         <Row>
           <Col>
             <div className="page-title-box d-sm-flex align-items-center justify-content-between">
@@ -65,25 +76,49 @@ const Product = () => {
               </Col>
               <Col className="col-md-auto ms-auto">
                 <div className="d-flex gap-2">
-                  <div className="search-box">
-                    <input
-                      type="number"
-                      className="form-control search"
-                      placeholder="Search for products..."
-                      name="minPrice"
-                      value={filter.minPrice}
-                      onChange={handleFilter}
-                    />
-                    <input
-                      type="number"
-                      className="form-control search"
-                      placeholder="Search for products..."
-                      name="maxPrice"
-                      value={filter.maxPrice}
-                      onChange={handleFilter}
-                    />
-                    <i className="ri-search-line search-icon"></i>
-                  </div>
+                  <select
+                    className="form-control mb-0"
+                    name="category"
+                    value={filter.category}
+                    onChange={handleFilter}
+                  >
+                    <option disabled>Select category</option>
+                    <option value="">All category</option>
+                    {category.map((item, key) => {
+                      return (
+                        <option
+                          key={key}
+                          value={item._id}
+                          className="text-capitalize"
+                        >
+                          {item.title}
+                        </option>
+                      );
+                    })}
+                  </select>
+                  <input
+                    type="number"
+                    className="form-control search"
+                    placeholder="Min price"
+                    name="minPrice"
+                    value={filter.minPrice}
+                    onChange={handleFilter}
+                  />
+                  <input
+                    type="number"
+                    className="form-control search"
+                    placeholder="Max price"
+                    name="maxPrice"
+                    value={filter.maxPrice}
+                    onChange={handleFilter}
+                  />
+                  <Button
+                    onClick={() => {
+                      dispatch(resetProductFilter());
+                    }}
+                  >
+                    Clear
+                  </Button>
                 </div>
               </Col>
             </Row>

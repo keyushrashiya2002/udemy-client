@@ -28,8 +28,8 @@ const ProductList = () => {
       .fill(1)
       .map((item, key) => (
         <tr key={key}>
-          <td colSpan={9} className="placeholder-glow p-0  overflow-hidden">
-            <span className="placeholder d-flex h-57p w-100"></span>
+          <td colSpan={3} className="placeholder-glow p-0  overflow-hidden">
+            <span className="placeholder d-flex py-3 w-100"></span>
           </td>
         </tr>
       ));
@@ -39,7 +39,9 @@ const ProductList = () => {
   const renderContent = () => {
     return data.map((item, key) => (
       <tr key={key}>
-        <td className="text-center"></td>
+        <td>{item.title}</td>
+        <td>{item.price}</td>
+        <td>{item.category.title}</td>
       </tr>
     ));
   };
@@ -64,8 +66,14 @@ const ProductList = () => {
           {data.length !== 0 && (
             <thead>
               <tr>
-                <th scope="col" className="table-light text-center">
-                  #
+                <th scope="col" className="table-light">
+                  Title
+                </th>
+                <th scope="col" className="table-light">
+                  Price
+                </th>
+                <th scope="col" className="table-light">
+                  Category
                 </th>
               </tr>
             </thead>
