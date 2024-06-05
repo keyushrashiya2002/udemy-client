@@ -6,3 +6,6 @@ const api = new APIClient();
 
 export const fetchProduct = (query) =>
   api.get(`${url.API_URL.GET_PRODUCT}`, query);
+
+export const fetchCategory = (query) =>
+  api.get(`${url.API_URL.GET_CATEOGRY}`, query);

@@ -6,6 +6,7 @@ import { getProduct } from "../../store/actions";
 
 import { setProductFilter } from "../../store/product/slice";
 import PaginationDiv from "../../Components/PaginationDiv";
+import { getCategory } from "../../store/category/thunk";
 
 const Product = () => {
   document.title = "Product | Udemy";
@@ -13,7 +14,12 @@ const Product = () => {
   const dispatch = useDispatch();
   const [filterChanged, setFilterChanged] = useState(false);
   const pagination = useSelector((state) => state.Product.pagination);
+  const category = useSelector((state) => state.Category.data);
   const filter = useSelector((state) => state.Product.filter);
+
+  useEffect(() => {
+    if (category.length === 0) dispatch(getCategory({}));
+  }, []);
 
   const handlePage = (number) => {
     dispatch(getProduct({ page: number }));
@@ -61,11 +67,19 @@ const Product = () => {
                 <div className="d-flex gap-2">
                   <div className="search-box">
                     <input
-                      type="text"
+                      type="number"
                       className="form-control search"
                       placeholder="Search for products..."
-                      name="productId"
-                      value={filter.productId}
+                      name="minPrice"
+                      value={filter.minPrice}
+                      onChange={handleFilter}
+                    />
+                    <input
+                      type="number"
+                      className="form-control search"
+                      placeholder="Search for products..."
+                      name="maxPrice"
+                      value={filter.maxPrice}
                       onChange={handleFilter}
                     />
                     <i className="ri-search-line search-icon"></i>
