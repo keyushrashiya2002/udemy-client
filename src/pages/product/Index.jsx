@@ -76,8 +76,16 @@ const Product = () => {
               </Col>
               <Col className="col-md-auto ms-auto">
                 <div className="d-flex gap-2">
+                  <input
+                    type="text"
+                    className="form-control search w-50"
+                    placeholder="Search by title"
+                    name="title"
+                    value={filter.title}
+                    onChange={handleFilter}
+                  />
                   <select
-                    className="form-control mb-0"
+                    className="form-control mb-0 w-50"
                     name="category"
                     value={filter.category}
                     onChange={handleFilter}
@@ -98,7 +106,7 @@ const Product = () => {
                   </select>
                   <input
                     type="number"
-                    className="form-control search"
+                    className="form-control search w-50"
                     placeholder="Min price"
                     name="minPrice"
                     value={filter.minPrice}
@@ -106,7 +114,7 @@ const Product = () => {
                   />
                   <input
                     type="number"
-                    className="form-control search"
+                    className="form-control search w-50"
                     placeholder="Max price"
                     name="maxPrice"
                     value={filter.maxPrice}
