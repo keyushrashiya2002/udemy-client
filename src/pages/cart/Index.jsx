@@ -13,25 +13,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCart } from "../../store/actions";
 
 import { setCartFilter } from "../../store/cart/slice";
-import PaginationDiv from "../../Components/PaginationDiv";
-import { getCategory } from "../../store/category/thunk";
 
 const Cart = () => {
   document.title = "Cart | Udemy";
 
   const dispatch = useDispatch();
   const [filterChanged, setFilterChanged] = useState(false);
-  const pagination = useSelector((state) => state.Cart.pagination);
-  const category = useSelector((state) => state.Category.data);
+
   const filter = useSelector((state) => state.Cart.filter);
-
-  useEffect(() => {
-    if (category.length === 0) dispatch(getCategory({}));
-  }, []);
-
-  const handlePage = (number) => {
-    dispatch(getCart({ page: number }));
-  };
 
   const handleSetEditData = (data) => {
     console.log(data);
@@ -75,14 +64,6 @@ const Cart = () => {
           </CardHeader>
           <CardBody className="p-0">
             <CartList />
-            <PaginationDiv
-              active={pagination.page}
-              size={pagination.totalPages}
-              totalItems={pagination.totalItems}
-              limit={pagination.limit}
-              rowClass={"mt-3 px-3"}
-              onClickHandler={(number) => handlePage(number)}
-            />
           </CardBody>
         </Card>
       </Container>

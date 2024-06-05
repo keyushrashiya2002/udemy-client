@@ -5,4 +5,5 @@ export const API_URL = {
   GET_CATEOGRY: API + "/category",
   GET_PRODUCT: API + "/product",
   GET_CART: API + "/cart",
+  GET_PURCHASE: API + "/purchase",
 };

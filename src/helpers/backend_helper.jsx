@@ -31,3 +31,12 @@ export const patchCartDetail = (data) => {
 export const destroyCart = (data) => {
   return api.delete(`${url.API_URL.GET_CART}/${data}`);
 };
+
+// =================================================================
+// Purchase
+// =================================================================
+export const createPurchase = (data) =>
+  api.create(`${url.API_URL.GET_PURCHASE}`, data);
+
+export const fetchPurchase = (query) =>
+  api.get(`${url.API_URL.GET_PURCHASE}`, query);

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Button, Table } from "reactstrap";
-import { getCart } from "../../store/actions";
+import { getCart, postPurchase } from "../../store/actions";
 import NoData from "../../Components/NoData";
 import { deleteCart, postCart, updateCart } from "../../store/cart/thunk";
 
@@ -10,10 +10,9 @@ const CartList = () => {
   const dispatch = useDispatch();
 
   // Retrieve data from Redux store
-  const { data, loading, limit } = useSelector((state) => ({
+  const { data, loading } = useSelector((state) => ({
     data: state.Cart.data,
     loading: state.Cart.loading,
-    limit: state.Cart.pagination.limit,
   }));
 
   // Fetch categories on component mount
@@ -25,7 +24,7 @@ const CartList = () => {
 
   // Render placeholder rows when loading
   const renderPlaceholderRows = () => {
-    return Array((data.length > 0 ? data.length : limit) || 10)
+    return Array((data.length > 0 ? data.length : 10) || 10)
       .fill(1)
       .map((_, key) => (
         <tr key={key}>
@@ -54,6 +53,7 @@ const CartList = () => {
             </Button>
             <input
               value={item.quantity}
+              readOnly
               type="number"
               className="form-control w-25"
             />
@@ -95,6 +95,13 @@ const CartList = () => {
     );
   };
 
+  const totalAmount = data
+    .map((item) => item.price * item.quantity)
+    .reduce((acc, curr) => acc + curr, 0);
+  const totalQuantity = data
+    .map((item) => item.quantity)
+    .reduce((acc, curr) => acc + curr, 0);
+
   return (
     <>
       <div className="table-responsive">
@@ -122,6 +129,29 @@ const CartList = () => {
               : data.length !== 0
               ? renderContent()
               : renderNoData()}
+            <tr>
+              <td className="text-end pe-3">Total</td>
+              <td className=" pe-3">{totalAmount}</td>
+              <td className=" pe-3 text-center">{totalQuantity}</td>
+              <td className=" pe-3 text-center">
+                <Button
+                  onClick={() => {
+                    dispatch(
+                      postPurchase({
+                        items: data.map((item) => ({
+                          product: item.productId,
+                          price: item.price,
+                          quantity: item.quantity,
+                        })),
+                        totalAmount,
+                      })
+                    );
+                  }}
+                >
+                  Place order
+                </Button>
+              </td>
+            </tr>
           </tbody>
         </Table>
       </div>

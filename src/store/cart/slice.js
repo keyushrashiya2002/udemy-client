@@ -11,7 +11,7 @@ let initialState = {
   error: null,
   data: [],
   itemDetails: {},
-  pagination: {},
+
   filter: {},
 };
 
@@ -73,7 +73,6 @@ const slice = createSlice({
       .addCase(getCart.fulfilled, (state, action) => {
         state.loading = false;
         state.data = action.payload.data;
-        state.pagination = action.payload.pagination;
         state.error = null;
       })
       .addCase(getCart.rejected, (state, action) => {

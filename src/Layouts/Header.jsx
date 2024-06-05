@@ -19,6 +19,11 @@ const Header = () => {
               </Link>
             </NavItem>
             <NavItem>
+              <Link className="nav-link" to={"/purchase"}>
+                Purchase
+              </Link>
+            </NavItem>
+            <NavItem>
               <Link className="nav-link text-danger" to={"/login"}>
                 Logout
               </Link>

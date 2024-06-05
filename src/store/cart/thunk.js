@@ -53,7 +53,7 @@ export const updateCart = createAsyncThunk(
 
 export const getCart = createAsyncThunk(
   "getCart",
-  async ({ values }, { rejectWithValue }) => {
+  async (values, { rejectWithValue }) => {
     try {
       // Call the fetchCart function to authenticate user
       const response = await fetchCart(values);
