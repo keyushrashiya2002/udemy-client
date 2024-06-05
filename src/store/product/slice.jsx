@@ -1,6 +1,6 @@
 // Import statements for Product function and createAsyncThunk
 import { createSlice } from "@reduxjs/toolkit";
-import { getProduct, getProductCount } from "./thunk";
+import { getProduct } from "./thunk";
 
 // Initial state definition
 let initialState = {
@@ -27,9 +27,7 @@ const slice = createSlice({
   // Extra reducers to handle async actions
   extraReducers: (builder) => {
     builder
-      .addCase(getProductCount.fulfilled, (state, action) => {
-        state.counts = action.payload.data;
-      })
+
       .addCase(getProduct.pending, (state) => {
         state.loading = true;
         state.error = null;

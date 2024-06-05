@@ -1,8 +1,6 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
+import Product from "../pages/product/Index";
 
-const publicRoutes = [
-  // { path: "/", component: <OnePage /> }
-];
+const publicRoutes = [{ path: "/", component: <Product /> }];
 
 export { publicRoutes };
